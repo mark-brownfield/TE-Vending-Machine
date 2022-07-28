@@ -13,27 +13,11 @@ import java.util.Scanner;
 
 public class VendingMachine {
 
-    File dataFile = new File("catering.csv");
+    File dataFile = new File("vending.csv");
 
     List<Item> itemList = new ArrayList<>();
 
     public void run() {
-        while(true) {
-            UserOutput.displayHomeScreen();
-            String choice = UserInput.getHomeScreenOption();
-            System.out.println(choice);
-            if(choice.equals("display")) {
-                UserOutput.displayItemList(itemList);
-            }
-            else if(choice.equals("purchase")) {
-                // make a purchase
-            }
-            else if(choice.equals("exit")) {
-                // good bye
-                break;
-            }
-        }
-
         try (Scanner fileScanner = new Scanner(dataFile)){
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
@@ -59,5 +43,26 @@ public class VendingMachine {
         } catch (FileNotFoundException e){
             System.out.println("File not found");
         }
+
+        while(true) {
+            UserOutput.displayHomeScreen();
+            String choice = UserInput.getHomeScreenOption();
+            System.out.println(choice);
+            if(choice.equals("display")) {
+                UserOutput.displayItemList(itemList);
+            }
+            else if(choice.equals("purchase")) {
+                UserOutput.displayPurchaseScreen();
+                String purchaseChoice = UserInput.getPurchaseScreenOption();
+                System.out.println(purchaseChoice);
+
+            }
+            else if(choice.equals("exit")) {
+                // good bye
+                break;
+            }
+        }
+
+
     }
 }
