@@ -63,10 +63,8 @@ public class UserInput {
             String option = selectedOption.trim().toLowerCase();
             System.out.println("option = " + option);
             if (option.equals("m")) {
-                //getFeedMoney();
                 return "Money";
             } else if (option.equals("s")) {
-                //getSelectItem();
                 return "Select";
             } else if (option.equals("f")) {
                 return "Finish Transaction";

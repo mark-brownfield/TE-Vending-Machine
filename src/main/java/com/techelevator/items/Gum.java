@@ -6,4 +6,9 @@ public class Gum extends Item{
     public Gum(String slot, String itemName, BigDecimal price, int itemCount) {
         super(slot, itemName, price, itemCount);
     }
+
+    @Override
+    public String getSound(){
+        return "Chewy, Chewy, Lots O Bubbles!";
+    }
 }

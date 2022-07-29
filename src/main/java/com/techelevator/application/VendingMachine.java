@@ -48,34 +48,35 @@ public class VendingMachine {
                 currentMoneyProvided = UserInput.getFeedMoney(currentMoneyProvided);
             } else if (purchaseChoice.equals("Select")) {
                 UserOutput.displayItemList(itemList);
-                selectOption();
+                currentMoneyProvided = selectOption(currentMoneyProvided);
+            } else if (purchaseChoice.equals("Finish Transaction")) {
+                System.out.println(makeChange(currentMoneyProvided));
+
             }
         }
     }
 
-
-    public void selectOption(){
+    public BigDecimal selectOption(BigDecimal currentMoneyProvided){
         String option = UserInput.getSelectItem(itemList);
         System.out.println(option);
+        boolean isFound = false;
         for (Item item : itemList) {
             if (item.getSlot().equals(option)) {
-                String selectedOption = item.getSlot();
-                System.out.println(item.getItemName() + " " + item.getPrice() +
-                        "  count: " + item.getItemCount());
-
-                break;
-            } else {
-                System.out.println("No");
+                isFound = true;
+                if (item.getPrice().compareTo(currentMoneyProvided) <= 0 && item.getItemCount() >= 1) {
+                    item.subtract();
+                    currentMoneyProvided = currentMoneyProvided.subtract(item.getPrice());
+                    UserOutput.dispenseItem(item);
+                    break;
+                } else {
+                    System.out.println("Item not dispensed");
+                }
             }
         }
-    }
-
-  /*  public void dispenseMessage(){
-        if (getClass(item))
-    }*/
-
-    public void despenseItem(){
-
+        if (isFound == false){
+            System.out.println("Item not found");
+        }
+        return currentMoneyProvided;
     }
 
     public void readFile(){
@@ -104,5 +105,26 @@ public class VendingMachine {
         } catch (FileNotFoundException e){
             System.out.println("File not found");
         }
+    }
+
+    public String makeChange(BigDecimal currentMoneyProvided) {
+        String change = "";
+        double dollarCount = 0;
+        double quarterCount = 0;
+        double dimeCount = 0;
+        double nickleCount = 0;
+        double money = currentMoneyProvided.doubleValue();
+        if (money == 0 ){
+            System.out.println("Change: $0.00");
+        } else {
+            double moneyToPennies = money * 100;
+            dollarCount = moneyToPennies / 100;
+            quarterCount = (moneyToPennies % 100) / 25;
+            dimeCount = (moneyToPennies % 25) / 10;
+            nickleCount = (moneyToPennies % 10) / 5;
+
+        }
+        return "Your change is: " + dollarCount + " dollars, " + quarterCount + " quarters, "
+                + dimeCount + " dimes, and " + nickleCount + " nickles";
     }
 }

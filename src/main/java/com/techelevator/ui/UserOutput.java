@@ -51,4 +51,10 @@ public class UserOutput {
         System.out.println();
     }
 
+    public static void dispenseItem(Item item){
+        System.out.println(item.getItemName() + " " + item.getPrice() +
+                "  count: " + item.getItemCount());
+        System.out.println(item.getSound());
+    }
+
 }

@@ -47,4 +47,12 @@ public class Item {
         this.itemCount = itemCount;
     }
 
+    public String getSound() {
+        return "";
+    }
+
+    public void subtract(){
+        itemCount--;
+    }
+
 }
