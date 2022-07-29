@@ -57,4 +57,8 @@ public class UserOutput {
         System.out.println(item.getSound());
     }
 
+    public static void notEnoughMoney(){
+        System.out.println("Not enough money provided.");
+    }
+
 }

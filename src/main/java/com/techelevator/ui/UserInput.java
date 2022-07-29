@@ -2,9 +2,12 @@ package com.techelevator.ui;
 
 
 import com.techelevator.ItemStock;
+import com.techelevator.application.VendingMachine;
 import com.techelevator.items.Item;
+import com.techelevator.logger.Logger;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,6 +17,8 @@ import java.util.Scanner;
  * Dependencies: None
  */
 public class UserInput {
+
+
     private static Scanner scanner = new Scanner(System.in);
 
     public static String getHomeScreenOption() {
@@ -75,15 +80,16 @@ public class UserInput {
     }
 
     public static BigDecimal getFeedMoney(BigDecimal currentMoneyProvided){
+        Logger logger = new Logger("AuditFile.txt");
         System.out.println();
         System.out.print("Feed Money Here >>> ");
         String moneyFedInput = scanner.nextLine();
         int moneyFedInt = Integer.parseInt(moneyFedInput);
-
        if (moneyFedInt == 1 || moneyFedInt == 5 ||
                moneyFedInt == 10 || moneyFedInt == 20){
             BigDecimal moneyFed = new BigDecimal(moneyFedInt);
             currentMoneyProvided = currentMoneyProvided.add(moneyFed);
+            logger.write(LocalDateTime.now() + "MONEY FED" + moneyFed + " " + currentMoneyProvided);
             System.out.println("Current Money Provided: $" + currentMoneyProvided);
         } else {
             System.out.println("Not valid bill. Amounts accepted: $1, $5, $10, $20");

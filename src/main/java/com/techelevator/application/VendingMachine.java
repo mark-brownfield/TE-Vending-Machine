@@ -1,12 +1,14 @@
 package com.techelevator.application;
 
 import com.techelevator.items.*;
+import com.techelevator.logger.Logger;
 import com.techelevator.ui.UserInput;
 import com.techelevator.ui.UserOutput;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,7 +19,10 @@ public class VendingMachine {
 
     List<Item> itemList = new ArrayList<>();
 
+    Logger logger;
+
     public void run() {
+        logger = new Logger("AuditFile.txt");
 
         readFile();
 
@@ -31,13 +36,15 @@ public class VendingMachine {
                  purchaseMenu();
                 }
             else if (choice.equals("exit")) {
-                    // good bye
+                    System.exit(1);
                     break;
                 }
             }
-
-
     }
+    /*public static void auditInput(int moneyFed, BigDecimal currentMoneyProvided, Logger logger){
+        logger.write(LocalDateTime.now() + "MONEY FED" + moneyFed + currentMoneyProvided);
+    }*/
+
     public void purchaseMenu(){
         BigDecimal currentMoneyProvided = new BigDecimal(0.00);
         while (true) {
@@ -51,7 +58,8 @@ public class VendingMachine {
                 currentMoneyProvided = selectOption(currentMoneyProvided);
             } else if (purchaseChoice.equals("Finish Transaction")) {
                 System.out.println(makeChange(currentMoneyProvided));
-
+                currentMoneyProvided = currentMoneyProvided.subtract(currentMoneyProvided);
+                run();
             }
         }
     }
@@ -60,6 +68,7 @@ public class VendingMachine {
         String option = UserInput.getSelectItem(itemList);
         System.out.println(option);
         boolean isFound = false;
+        BigDecimal initialAmount = currentMoneyProvided;
         for (Item item : itemList) {
             if (item.getSlot().equals(option)) {
                 isFound = true;
@@ -67,10 +76,17 @@ public class VendingMachine {
                     item.subtract();
                     currentMoneyProvided = currentMoneyProvided.subtract(item.getPrice());
                     UserOutput.dispenseItem(item);
+                    logger.write(LocalDateTime.now() + "  " + item.getItemName() + " " + item.getSlot() + " $"
+                    + initialAmount + " $" + currentMoneyProvided);
                     break;
-                } else {
-                    System.out.println("Item not dispensed");
+                } else if (item.getItemCount() < 1) {
+                    System.out.println("NO LONGER AVAILABLE");
+                    break;
+                } else if (item.getPrice().compareTo(currentMoneyProvided) > 0){
+                    UserOutput.notEnoughMoney();
+                    break;
                 }
+
             }
         }
         if (isFound == false){
@@ -108,20 +124,26 @@ public class VendingMachine {
     }
 
     public String makeChange(BigDecimal currentMoneyProvided) {
+        logger = new Logger("AuditFile.txt");
+        logger.write(LocalDateTime.now() + "  " + "CHANGE GIVEN" + "  " + currentMoneyProvided + "  $0.00");
         String change = "";
-        double dollarCount = 0;
-        double quarterCount = 0;
-        double dimeCount = 0;
-        double nickleCount = 0;
+        int dollarCount = 0;
+        int quarterCount = 0;
+        int dimeCount = 0;
+        int nickleCount = 0;
         double money = currentMoneyProvided.doubleValue();
         if (money == 0 ){
             System.out.println("Change: $0.00");
         } else {
             double moneyToPennies = money * 100;
-            dollarCount = moneyToPennies / 100;
-            quarterCount = (moneyToPennies % 100) / 25;
-            dimeCount = (moneyToPennies % 25) / 10;
-            nickleCount = (moneyToPennies % 10) / 5;
+            dollarCount = (int) (moneyToPennies / 100);
+            moneyToPennies -= (dollarCount * 100);
+            quarterCount = (int) (moneyToPennies  / 25);
+            moneyToPennies -= quarterCount * 25;
+            dimeCount = (int) (moneyToPennies / 10);
+            moneyToPennies -= dimeCount * 10;
+            nickleCount = (int) (moneyToPennies / 5);
+            moneyToPennies -= nickleCount * 5;
 
         }
         return "Your change is: " + dollarCount + " dollars, " + quarterCount + " quarters, "
