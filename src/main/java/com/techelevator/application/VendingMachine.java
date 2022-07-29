@@ -48,20 +48,28 @@ public class VendingMachine {
             UserOutput.displayHomeScreen();
             String choice = UserInput.getHomeScreenOption();
             System.out.println(choice);
-            if(choice.equals("display")) {
+            if (choice.equals("display")) {
                 UserOutput.displayItemList(itemList);
+            } else if (choice.equals("purchase")) {
+                BigDecimal currentMoneyProvided = new BigDecimal(0.00);
+                while (true) {
+                    UserOutput.displayPurchaseScreen();
+                    String purchaseChoice = UserInput.getPurchaseScreenOption(currentMoneyProvided);
+                    System.out.println(purchaseChoice);
+                    if (purchaseChoice.equals("Money")){
+                        currentMoneyProvided = UserInput.getFeedMoney(currentMoneyProvided);
+                    } else if (purchaseChoice.equals("Select")){
+                        UserOutput.displayItemList(itemList);
+                        String option = UserInput.getSelectItem(itemList);
+                        
+                    }
+                }
+                }
+            else if (choice.equals("exit")) {
+                    // good bye
+                    break;
+                }
             }
-            else if(choice.equals("purchase")) {
-                UserOutput.displayPurchaseScreen();
-                String purchaseChoice = UserInput.getPurchaseScreenOption();
-                System.out.println(purchaseChoice);
-
-            }
-            else if(choice.equals("exit")) {
-                // good bye
-                break;
-            }
-        }
 
 
     }

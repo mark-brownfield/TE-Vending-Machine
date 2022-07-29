@@ -2,8 +2,10 @@ package com.techelevator.ui;
 
 
 import com.techelevator.ItemStock;
+import com.techelevator.items.Item;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -13,7 +15,6 @@ import java.util.Scanner;
  */
 public class UserInput {
     private static Scanner scanner = new Scanner(System.in);
-    private static BigDecimal currentMoneyProvided = new BigDecimal(0.00);
 
     public static String getHomeScreenOption() {
         System.out.println("What would you like to do?");
@@ -44,7 +45,7 @@ public class UserInput {
 
     }
 
-    public static String getPurchaseScreenOption() {
+    public static String getPurchaseScreenOption(BigDecimal currentMoneyProvided) {
         System.out.println("What would you like to do?");
         System.out.println();
 
@@ -62,11 +63,11 @@ public class UserInput {
             String option = selectedOption.trim().toLowerCase();
             System.out.println("option = " + option);
             if (option.equals("m")) {
-                getFeedMoney();
-
+                //getFeedMoney();
+                return "Money";
             } else if (option.equals("s")) {
-                getSelectItem();
-
+                //getSelectItem();
+                return "Select";
             } else if (option.equals("f")) {
                 return "Finish Transaction";
             } else {
@@ -75,7 +76,7 @@ public class UserInput {
         }
     }
 
-    public static void getFeedMoney(){
+    public static BigDecimal getFeedMoney(BigDecimal currentMoneyProvided){
         System.out.println();
         System.out.print("Feed Money Here >>> ");
         String moneyFedInput = scanner.nextLine();
@@ -86,21 +87,19 @@ public class UserInput {
             BigDecimal moneyFed = new BigDecimal(moneyFedInt);
             currentMoneyProvided = currentMoneyProvided.add(moneyFed);
             System.out.println("Current Money Provided: $" + currentMoneyProvided);
-            getPurchaseScreenOption();
         } else {
             System.out.println("Not valid bill. Amounts accepted: $1, $5, $10, $20");
-            getPurchaseScreenOption();
         }
+       return currentMoneyProvided;
     }
 
-    public static void getSelectItem(){
-        UserOutput.displayItemList();
+    public static String getSelectItem(List<Item> itemList){
         System.out.println();
         System.out.println("What would you like to purchase?");
         System.out.print("Please enter slot identifier >>> ");
         String option = scanner.nextLine();
         option = option.trim().toUpperCase().replace(" ", "");
-
+        return option;
     }
 
 }
