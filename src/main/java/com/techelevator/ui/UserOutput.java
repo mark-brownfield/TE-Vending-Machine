@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UserOutput {
+
+
     public static void displayMessage(String message) {
         System.out.println();
         System.out.println(message);

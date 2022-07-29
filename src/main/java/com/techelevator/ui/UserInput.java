@@ -1,6 +1,8 @@
 package com.techelevator.ui;
 
 
+import com.techelevator.ItemStock;
+
 import java.math.BigDecimal;
 import java.util.Scanner;
 
@@ -72,6 +74,7 @@ public class UserInput {
             }
         }
     }
+
     public static void getFeedMoney(){
         System.out.println();
         System.out.print("Feed Money Here >>> ");
@@ -92,6 +95,11 @@ public class UserInput {
 
     public static void getSelectItem(){
         UserOutput.displayItemList();
+        System.out.println();
+        System.out.println("What would you like to purchase?");
+        System.out.print("Please enter slot identifier >>> ");
+        String option = scanner.nextLine();
+        option = option.trim().toUpperCase().replace(" ", "");
 
     }
 

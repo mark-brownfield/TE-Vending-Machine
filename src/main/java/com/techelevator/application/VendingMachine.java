@@ -13,8 +13,12 @@ import java.util.Scanner;
 
 public class VendingMachine {
 
+    // File
+    // List
 
     public void run() {
+
+        // Try catch
 
         while(true) {
             UserOutput.displayHomeScreen();
