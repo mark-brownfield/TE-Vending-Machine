@@ -1,6 +1,5 @@
 package com.techelevator.ui;
 
-import com.techelevator.purchase.Purchase;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
@@ -12,7 +11,7 @@ import java.util.Scanner;
  */
 public class UserInput {
     private static Scanner scanner = new Scanner(System.in);
-    private static BigDecimal currentMoneyProvided = new BigDecimal(0.0);
+    private static BigDecimal currentMoneyProvided = new BigDecimal(0.00);
 
     public static String getHomeScreenOption() {
         System.out.println("What would you like to do?");
@@ -61,10 +60,10 @@ public class UserInput {
             String option = selectedOption.trim().toLowerCase();
             System.out.println("option = " + option);
             if (option.equals("m")) {
-                feedMoney();
+                getFeedMoney();
 
             } else if (option.equals("s")) {
-                return "Select Item";
+                getSelectItem();
 
             } else if (option.equals("f")) {
                 return "Finish Transaction";
@@ -73,8 +72,9 @@ public class UserInput {
             }
         }
     }
-    public static void feedMoney(){
-        System.out.println("Feed Money");
+    public static void getFeedMoney(){
+        System.out.println();
+        System.out.print("Feed Money Here >>> ");
         String moneyFedInput = scanner.nextLine();
         int moneyFedInt = Integer.parseInt(moneyFedInput);
 
@@ -90,8 +90,9 @@ public class UserInput {
         }
     }
 
-    public static void selectItem(){
-        
+    public static void getSelectItem(){
+        UserOutput.displayItemList();
+
     }
 
 }
