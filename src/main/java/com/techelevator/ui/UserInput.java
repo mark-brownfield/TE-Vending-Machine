@@ -89,7 +89,8 @@ public class UserInput {
                moneyFedInt == 10 || moneyFedInt == 20){
             BigDecimal moneyFed = new BigDecimal(moneyFedInt);
             currentMoneyProvided = currentMoneyProvided.add(moneyFed);
-            logger.write(LocalDateTime.now() + "MONEY FED" + moneyFed + " " + currentMoneyProvided);
+            logger.write(LocalDateTime.now() + "  MONEY FED: $" + moneyFed + ".00 "
+                    + "$" + currentMoneyProvided);
             System.out.println("Current Money Provided: $" + currentMoneyProvided);
         } else {
             System.out.println("Not valid bill. Amounts accepted: $1, $5, $10, $20");
