@@ -64,5 +64,4 @@ public class UserOutput {
     public static void notEnoughMoney(){
         System.out.println("Not enough money provided.");
     }
-
 }

@@ -41,6 +41,7 @@ public class VendingMachine {
                 }
             }
     }
+
     public void purchaseMenu(){
         BigDecimal currentMoneyProvided = new BigDecimal(0.00);
         while (true) {
