@@ -71,7 +71,7 @@ public class VendingMachine {
                 if (item.getPrice().compareTo(currentMoneyProvided) <= 0 && item.getItemCount() >= 1) {
                     item.subtract();
                     currentMoneyProvided = currentMoneyProvided.subtract(item.getPrice());
-                    UserOutput.dispenseItem(item);
+                    UserOutput.dispenseItem(item, initialAmount, currentMoneyProvided);
                     break;
                 } else if (item.getItemCount() < 1) {
                     System.out.println("NO LONGER AVAILABLE");
@@ -81,8 +81,6 @@ public class VendingMachine {
                     break;
                 }
             }
-            logger.write(LocalDateTime.now() + "  " + item.getItemName() + "  "
-                    + item.getSlot() + " $" + initialAmount + " $" + currentMoneyProvided);
         }
         if (isFound == false){
             System.out.println("Item not found");

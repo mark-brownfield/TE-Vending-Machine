@@ -2,16 +2,17 @@ package com.techelevator.ui;
 
 import com.techelevator.application.VendingMachine;
 import com.techelevator.items.*;
+import com.techelevator.logger.Logger;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class UserOutput {
-
 
     public static void displayMessage(String message) {
         System.out.println();
@@ -51,10 +52,13 @@ public class UserOutput {
         System.out.println();
     }
 
-    public static void dispenseItem(Item item){
+    public static void dispenseItem(Item item, BigDecimal initialAmount, BigDecimal currentMoneyProvided){
+        Logger logger = new Logger("AuditFile.txt");
         System.out.println(item.getItemName() + " " + item.getPrice() +
                 "  count: " + item.getItemCount());
         System.out.println(item.getSound());
+        logger.write(LocalDateTime.now() + "  " + item.getItemName() + "  "
+                + item.getSlot() + " $" + initialAmount + " $" + currentMoneyProvided);
     }
 
     public static void notEnoughMoney(){
