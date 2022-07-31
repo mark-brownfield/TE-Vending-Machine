@@ -78,7 +78,24 @@ public class UserInput {
         }
     }
 
-    public static BigDecimal getFeedMoney(BigDecimal currentMoneyProvided) {
+    public static String getMoneyFed() {
+        System.out.println();
+        System.out.print("Feed Money Here: ");
+        String moneyFedInput = scanner.nextLine();
+        return moneyFedInput;
+    }
+
+    public static String getSelectItem(List<Item> itemList){
+        System.out.println();
+        System.out.println("What would you like to purchase?");
+        System.out.print("Please enter slot identifier: ");
+        String option = scanner.nextLine();
+        option = option.trim().toUpperCase().replace(" ", "");
+        return option;
+    }
+}
+
+    /*public static BigDecimal getFeedMoney(BigDecimal currentMoneyProvided) {
         Logger logger = new Logger("AuditFile.txt");
         System.out.println();
         System.out.print("Feed Money Here: ");
@@ -91,19 +108,9 @@ public class UserInput {
             logger.write(LocalDateTime.now() + "  MONEY FED: $" + moneyFed + ".00 "
                     + "$" + currentMoneyProvided);
             System.out.println("Current Money Provided: $" + currentMoneyProvided);
-            } else {
-                System.out.println("Not valid bill. Amounts accepted: $1, $5, $10, $20");
-            }
+        } else {
+            System.out.println("Not valid bill. Bills accepted: 1, 5, 10, 20");
+        }
         return currentMoneyProvided;
-    }
-
-    public static String getSelectItem(List<Item> itemList){
-        System.out.println();
-        System.out.println("What would you like to purchase?");
-        System.out.print("Please enter slot identifier: ");
-        String option = scanner.nextLine();
-        option = option.trim().toUpperCase().replace(" ", "");
-        return option;
-    }
-}
+    }*/
 

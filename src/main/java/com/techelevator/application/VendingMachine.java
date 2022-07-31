@@ -24,8 +24,6 @@ public class VendingMachine {
     public void run() {
         logger = new Logger("AuditFile.txt");
 
-        readFile();
-
         while(true) {
             UserOutput.displayHomeScreen();
             String choice = UserInput.getHomeScreenOption();
@@ -49,10 +47,10 @@ public class VendingMachine {
             String purchaseChoice = UserInput.getPurchaseScreenOption(currentMoneyProvided);
             System.out.println(purchaseChoice);
             if (purchaseChoice.equals("Money")) {
-                currentMoneyProvided = UserInput.getFeedMoney(currentMoneyProvided);
+                currentMoneyProvided = getFeedMoney(currentMoneyProvided, UserInput.getMoneyFed());
             } else if (purchaseChoice.equals("Select")) {
                 UserOutput.displayItemList(itemList);
-                currentMoneyProvided = selectOption(currentMoneyProvided);
+                currentMoneyProvided = selectOption(currentMoneyProvided, UserInput.getSelectItem(itemList));
             } else if (purchaseChoice.equals("Finish Transaction")) {
                 System.out.println(makeChange(currentMoneyProvided));
                 currentMoneyProvided = currentMoneyProvided.subtract(currentMoneyProvided);
@@ -61,8 +59,7 @@ public class VendingMachine {
         }
     }
 
-    public BigDecimal selectOption(BigDecimal currentMoneyProvided){
-        String option = UserInput.getSelectItem(itemList);
+    public BigDecimal selectOption(BigDecimal currentMoneyProvided, String option){
         System.out.println(option);
         boolean isFound = false;
         BigDecimal initialAmount = currentMoneyProvided;
@@ -127,7 +124,7 @@ public class VendingMachine {
         int nickleCount = 0;
         double money = currentMoneyProvided.doubleValue();
         if (money == 0 ){
-            System.out.println("Change: $0.00");
+            return "Change: $0.00";
         } else {
             double moneyToPennies = money * 100;
             dollarCount = (int) (moneyToPennies / 100);
@@ -138,7 +135,24 @@ public class VendingMachine {
             moneyToPennies -= dimeCount * 10;
             nickleCount = (int) (moneyToPennies / 5);
         }
-        return "Your change is: " + dollarCount + " dollars, " + quarterCount + " quarters, "
-                + dimeCount + " dimes, and " + nickleCount + " nickles";
+        return "Your change is: " + dollarCount + " dollar(s), " + quarterCount + " quarter(s), "
+                + dimeCount + " dime(s), and " + nickleCount + " nickle(s)";
     }
+
+    public static BigDecimal getFeedMoney(BigDecimal currentMoneyProvided, String moneyFedInput) {
+        Logger logger = new Logger("AuditFile.txt");
+        if (moneyFedInput.equals("1") || moneyFedInput.equals("5") ||
+                moneyFedInput.equals("10") || moneyFedInput.equals("20")) {
+            int moneyFedInt = Integer.parseInt(moneyFedInput);
+            BigDecimal moneyFed = new BigDecimal(moneyFedInt);
+            currentMoneyProvided = currentMoneyProvided.add(moneyFed);
+            logger.write(LocalDateTime.now() + "  MONEY FED: $" + moneyFed + ".00 "
+                    + "$" + currentMoneyProvided);
+            System.out.println("Current Money Provided: $" + currentMoneyProvided);
+        } else {
+            System.out.println("Not valid bill. Bills accepted: 1, 5, 10, 20");
+        }
+        return currentMoneyProvided;
+    }
+
 }
