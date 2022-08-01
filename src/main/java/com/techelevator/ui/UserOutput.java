@@ -1,17 +1,12 @@
 package com.techelevator.ui;
 
-import com.techelevator.application.VendingMachine;
 import com.techelevator.items.*;
 import com.techelevator.logger.Logger;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class UserOutput {
 
@@ -30,8 +25,6 @@ public class UserOutput {
     }
 
     public static void displayItemList(List<Item> itemList){
-
-
         System.out.println();
         System.out.println("***************************************************");
         System.out.println("            Vending Machine Inventory");
@@ -41,7 +34,6 @@ public class UserOutput {
             System.out.printf("%-6s%-24s%-10s%-4s\n", itemList.get(i).getSlot(),
                     itemList.get(i).getItemName(), itemList.get(i).getPrice(),
                     itemList.get(i).getItemCount());
-
         }
     }
 

@@ -1,6 +1,5 @@
 package com.techelevator.application;
 
-import com.sun.jdi.LocalVariable;
 import com.techelevator.items.*;
 import com.techelevator.logger.Logger;
 import com.techelevator.ui.UserInput;
@@ -14,8 +13,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-
 
 public class VendingMachine {
 
@@ -162,5 +159,4 @@ public class VendingMachine {
         }
         return currentMoneyProvided;
     }
-
 }

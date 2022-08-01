@@ -1,13 +1,8 @@
 package com.techelevator.ui;
 
-
-import com.techelevator.ItemStock;
-import com.techelevator.application.VendingMachine;
 import com.techelevator.items.Item;
-import com.techelevator.logger.Logger;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
@@ -67,9 +62,9 @@ public class UserInput {
             String option = selectedOption.trim().toLowerCase();
             System.out.println("option = " + option);
             if (option.equals("m")) {
-                return "Money";
+                return "Feed Money";
             } else if (option.equals("s")) {
-                return "Select";
+                return "Select Item";
             } else if (option.equals("f")) {
                 return "Finish Transaction";
             } else {

@@ -19,32 +19,16 @@ public class Item {
         return slot;
     }
 
-    public void setSlot(String slot) {
-        this.slot = slot;
-    }
-
     public String getItemName() {
         return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
     }
 
     public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
     public int getItemCount() {
         return itemCount;
-    }
-
-    public void setItemCount(int itemCount) {
-        this.itemCount = itemCount;
     }
 
     public String getSound() {
