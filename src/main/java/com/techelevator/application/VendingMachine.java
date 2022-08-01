@@ -1,5 +1,6 @@
 package com.techelevator.application;
 
+import com.sun.jdi.LocalVariable;
 import com.techelevator.items.*;
 import com.techelevator.logger.Logger;
 import com.techelevator.ui.UserInput;
@@ -9,9 +10,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+
 
 public class VendingMachine {
 
@@ -115,8 +119,10 @@ public class VendingMachine {
     }
 
     public String makeChange(BigDecimal currentMoneyProvided) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd h:mm:ss a");
         logger = new Logger("AuditFile.txt");
-        logger.write(LocalDateTime.now() + "  CHANGE GIVEN:  $" + currentMoneyProvided + "  $0.00");
+        logger.write(now.format(formatter) + "  CHANGE GIVEN:  $" + currentMoneyProvided + "  $0.00");
 
         int dollarCount = 0;
         int quarterCount = 0;
@@ -140,13 +146,15 @@ public class VendingMachine {
     }
 
     public static BigDecimal getFeedMoney(BigDecimal currentMoneyProvided, String moneyFedInput) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd h:mm:ss a");
         Logger logger = new Logger("AuditFile.txt");
         if (moneyFedInput.equals("1") || moneyFedInput.equals("5") ||
                 moneyFedInput.equals("10") || moneyFedInput.equals("20")) {
             int moneyFedInt = Integer.parseInt(moneyFedInput);
             BigDecimal moneyFed = new BigDecimal(moneyFedInt);
             currentMoneyProvided = currentMoneyProvided.add(moneyFed);
-            logger.write(LocalDateTime.now() + "  MONEY FED: $" + moneyFed + ".00 "
+            logger.write(now.format(formatter) + "  MONEY FED: $" + moneyFed + ".00 "
                     + "$" + currentMoneyProvided);
             System.out.println("Current Money Provided: $" + currentMoneyProvided);
         } else {

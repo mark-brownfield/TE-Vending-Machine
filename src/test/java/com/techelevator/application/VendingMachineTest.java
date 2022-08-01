@@ -11,6 +11,7 @@ public class VendingMachineTest {
     @Test
     public void selectOptionTest_returnCurrentAmount_withoutBuying_with_incorrectSlotPassed(){
         VendingMachine vendingMachine = new VendingMachine();
+        vendingMachine.readFile();
         BigDecimal expected = new BigDecimal(5);
 
         BigDecimal startingMoney = new BigDecimal(5);
@@ -19,16 +20,6 @@ public class VendingMachineTest {
 
         assertEquals(expected, actual);
     }
-    /*@Test
-    public void selectOptionTest_returnCurrentAmount_afterBuying_item(){
-        VendingMachine vendingMachine = new VendingMachine();
-        BigDecimal expected = new BigDecimal(0.75);
-
-        BigDecimal startingMoney = new BigDecimal(5);
-        BigDecimal actual = vendingMachine.selectOption(startingMoney, "a3");
-
-        assertEquals(expected, actual);
-    }*/
     @Test
     public void getFeedMoneyTest_update_currentMoneyProvided_with_moneyFed_5(){
         VendingMachine vendingMachine = new VendingMachine();

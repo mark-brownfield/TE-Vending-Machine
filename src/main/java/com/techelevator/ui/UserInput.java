@@ -95,22 +95,4 @@ public class UserInput {
     }
 }
 
-    /*public static BigDecimal getFeedMoney(BigDecimal currentMoneyProvided) {
-        Logger logger = new Logger("AuditFile.txt");
-        System.out.println();
-        System.out.print("Feed Money Here: ");
-        String moneyFedInput = scanner.nextLine();
-        if (moneyFedInput.equals("1") || moneyFedInput.equals("5") ||
-                moneyFedInput.equals("10") || moneyFedInput.equals("20")) {
-            int moneyFedInt = Integer.parseInt(moneyFedInput);
-            BigDecimal moneyFed = new BigDecimal(moneyFedInt);
-            currentMoneyProvided = currentMoneyProvided.add(moneyFed);
-            logger.write(LocalDateTime.now() + "  MONEY FED: $" + moneyFed + ".00 "
-                    + "$" + currentMoneyProvided);
-            System.out.println("Current Money Provided: $" + currentMoneyProvided);
-        } else {
-            System.out.println("Not valid bill. Bills accepted: 1, 5, 10, 20");
-        }
-        return currentMoneyProvided;
-    }*/
 

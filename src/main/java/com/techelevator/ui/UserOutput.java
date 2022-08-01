@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -53,11 +54,13 @@ public class UserOutput {
     }
 
     public static void dispenseItem(Item item, BigDecimal initialAmount, BigDecimal currentMoneyProvided){
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd h:mm:ss a");
         Logger logger = new Logger("AuditFile.txt");
         System.out.println(item.getItemName() + " " + item.getPrice() +
                 "  count: " + item.getItemCount());
         System.out.println(item.getSound());
-        logger.write(LocalDateTime.now() + "  " + item.getItemName() + "  "
+        logger.write(now.format(formatter) + "  " + item.getItemName() + "  "
                 + item.getSlot() + " $" + initialAmount + " $" + currentMoneyProvided);
     }
 
